@@ -33,53 +33,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.roboconf</groupId>
-		<artifactId>roboconf-parent</artifactId>
-		<version>1.2</version>
+		<artifactId>roboconf-system-installers</artifactId>
+		<version>0.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	
-	<groupId>net.roboconf</groupId>
-	<artifactId>roboconf-system-installers</artifactId>
-	<version>0.2-SNAPSHOT</version>
-	<name>Roboconf :: System Installers</name>
+
+    <groupId>net.roboconf</groupId>
+	<artifactId>roboconf-linux-install-scripts</artifactId>
+	<name>Roboconf :: Install Scripts for Linux</name>
 	<packaging>pom</packaging>
-	
-	<modules>
-		<module>roboconf-linux-install-scripts</module>
-		
-		<!--
-		<module>roboconf-dist-debian-agent</module>
-		<module>roboconf-dist-debian-dm</module>
-		-->
-	</modules>
-	
+
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.6</version>
-				</plugin>
-	
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.9</version>
-				</plugin>
-				
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.5.3</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-assembly</id>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
-	
-	<scm>
-		<connection>scm:git:git@github.com:roboconf/roboconf-system-installers.git</connection>
-		<developerConnection>scm:git:git@github.com:roboconf/roboconf-system-installers.git</developerConnection>
-		<url>git@github.com:roboconf/roboconf-system-installers.git</url>
-	</scm>
-	
 </project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>packaging</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	
+	<fileSets>
+        <fileSet>
+            <directory>src/main/assembly/scripts</directory>
+            <outputDirectory>scripts</outputDirectory>
+            <filtered>true</filtered>
+        </fileSet>
+    </fileSets>
+</assembly>
