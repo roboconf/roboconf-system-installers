@@ -43,15 +43,17 @@ echo "rabbitmqctl add_user $RMQ_USER $RMQ_PWD" > ~/configure-rmq.sh
 echo "rabbitmqctl set_permissions $RMQ_USER \".*\" \".*\" \".*\"" >> ~/configure-rmq.sh
 echo "rabbitmqctl delete_user guest" >> ~/configure-rmq.sh
 
-# Execute it now...
+# Execute it now
 sudo chmod 755 ~/configure-rmq.sh
 sudo ~/configure-rmq.sh
 
-# ... and make it executed at every boot (if not already done).
-# This is useful when we create an image from the RabbitMQ VM.
-# No need to reconfigure every time (BTW, this is related to IP changes).
+# Prevent RabbitMQ from erasing this configuration
+sudo rm -f /etc/rabbitmq/rabbitmq-env.conf
+sudo echo "NODENAME=rabbit@localhost" > /etc/rabbitmq/rabbitmq-env.conf
+
+# Make sure agents update the APT repositories at startup
 if ! grep -q configure-rmq.sh /etc/rc.local; then
-	sudo sed -i "s/^exit 0/~\/configure-rmq.sh\nexit 0/g" /etc/rc.local
+	sudo sed -i "s/^exit 0/sudo apt-get update\nexit 0/g" /etc/rc.local
 fi
 
 exit
