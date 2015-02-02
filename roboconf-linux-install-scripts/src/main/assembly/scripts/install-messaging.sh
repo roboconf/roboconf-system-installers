@@ -51,8 +51,8 @@ sudo ~/configure-rmq.sh
 sudo rm -f /etc/rabbitmq/rabbitmq-env.conf
 sudo echo "NODENAME=rabbit@localhost" > /etc/rabbitmq/rabbitmq-env.conf
 
-# Make sure agents update the APT repositories at startup
-if ! grep -q configure-rmq.sh /etc/rc.local; then
+# Make sure new VMs update the APT repositories at startup
+if ! grep -q apt-get /etc/rc.local; then
 	sudo sed -i "s/^exit 0/sudo apt-get update\nexit 0/g" /etc/rc.local
 fi
 

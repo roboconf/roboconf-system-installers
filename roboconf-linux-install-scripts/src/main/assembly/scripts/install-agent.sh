@@ -40,6 +40,11 @@ ssh -t $SSH_OPTIONS ubuntu@$IP_AGENT bash <<ENDOFSCRIPT
 # Install Java
 sudo apt-get update -y
 sudo apt-get install openjdk-7-jdk -y
+	
+# Make sure new VMs update the APT repositories at startup
+if ! grep -q apt-get /etc/rc.local; then
+	sudo sed -i "s/^exit 0/sudo apt-get update\nexit 0/g" /etc/rc.local
+fi
 
 # Extract the agent
 rm -rf $AGENT_NAME
