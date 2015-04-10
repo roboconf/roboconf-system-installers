@@ -21,7 +21,7 @@
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: The startup script for Roboconf's agent
+# Short-Description: The startup script for Roboconf agent
 # Description:       This file should be used to construct scripts to be
 #                    placed in /etc/init.d.
 ### END INIT INFO
@@ -36,9 +36,14 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Roboconf Agent"
 NAME=roboconf-agent
-DAEMON=/usr/bin/$NAME
+DAEMON=/opt/roboconf-agent/bin/karaf
 SCRIPTNAME=/etc/init.d/$NAME
 RUNDIR=/var/run/$NAME
+PIDFILE=/var/run/$NAME.pid
+export KARAF_HOME=/opt/roboconf-agent
+export KARAF_BASE=/opt/roboconf-agent
+export KARAF_ETC=/etc/roboconf-agent
+export KARAF_DATA=/var/log/roboconf-agent
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -50,33 +55,29 @@ RUNDIR=/var/run/$NAME
 
 
 #
-# Function that starts all Petals ESB container as daemons/services
+# Function that starts Roboconf agent as a daemon
 #
 do_start_karaf_agent()
 {
-   log_daemon_msg "Starting Roboconf's agent:"
-	
 	# Return
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon --start --chuid petals --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
+	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
 		|| return 1
-	start-stop-daemon --start --chuid petals --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- \
+	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- \
 		$DAEMON_ARGS \
 		|| return 2
 }
 
 do_stop_karaf_agent()
 {
-   log_daemon_msg "Starting Roboconf's agent:"
-   
 	# Return
 	#   0 if daemon has been stopped
 	#   1 if daemon was already stopped
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
-	start-stop-daemon --stop --chuid petals --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
+	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
 	RETVAL="$?"
 	[ "$RETVAL" = 2 ] && return 2
 	rm -f $PIDFILE
@@ -98,11 +99,11 @@ do_reload() {
 
 case "$1" in
   start)
-	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC"
 	do_start_karaf_agent
 	;;
   stop)
-	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC"
 	do_stop_karaf_agent
 	;;
   status)
@@ -113,7 +114,7 @@ case "$1" in
 	# If do_reload() is not implemented then leave this commented out
 	# and leave 'force-reload' as an alias for 'restart'.
 	#
-	#log_daemon_msg "Reloading $DESC" "$NAME"
+	#log_daemon_msg "Reloading $DESC"
 	#do_reload
 	#log_end_msg $?
 	#;;
@@ -122,7 +123,7 @@ case "$1" in
 	# If the "reload" option is implemented then remove the
 	# 'force-reload' alias
 	#
-	log_daemon_msg "Restarting $DESC" "$NAME"
+	log_daemon_msg "Restarting $DESC"
 	do_stop_all_containers
 	case "$?" in
 	  0|1)

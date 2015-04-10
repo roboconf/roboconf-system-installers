@@ -4,6 +4,6 @@ Section: contrib/java
 Priority: optional
 Architecture: all
 Depends: java2-runtime, curl, base-files
-Maintainer: Vincent ZURCZAK <vincent.zurczak@linagora.com>
-Description: Roboconf Agent
+Maintainer: Pierre-Yves Gibello <pygibello@linagora.com>
+Description: Roboconf Deployment Manager
 Distribution: development

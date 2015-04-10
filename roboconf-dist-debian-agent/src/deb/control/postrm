@@ -33,7 +33,8 @@ if [ "$1" = "purge" ]; then
    
    # Remove all the user data
    rm -rf $ROBOCONF_AGENT_ETC || true
-   
-   # Remove all the executables
-   rm -rf $ROBOCONF_AGENT_OPT || true   
 fi
+ 
+# Remove all the executables
+rm -rf $ROBOCONF_AGENT_OPT || true   
+

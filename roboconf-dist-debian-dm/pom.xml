@@ -34,7 +34,7 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.2-SNAPSHOT</version>
+		<version>0.4-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -224,7 +224,7 @@
 								
 								<!-- Man page -->
 								<data>
-									<src>${project.build.directory}/man</src>
+									<src>${project.basedir}/src/files/man</src>
 									<type>directory</type>
 									<mapper>
 										<type>perm</type>

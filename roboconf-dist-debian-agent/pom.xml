@@ -34,7 +34,7 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.2-SNAPSHOT</version>
+		<version>0.4-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -48,7 +48,7 @@
 			<groupId>net.roboconf</groupId>
 			<artifactId>roboconf-karaf-dist-agent</artifactId>
 			<version>${project.version}</version>
-			<type>zip</type>
+			<type>tar.gz</type>
 		</dependency>
 	</dependencies>
 
@@ -150,8 +150,8 @@
 							<dataSet>
 							
 								<!-- Karaf's etc directory is located under /etc/roboconf-agent/karaf -->
-								<data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.zip</src>
+								<!--data>
+									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
 									<type>archive</type>
 									<includes>**/etc/*</includes>
 									<mapper>
@@ -162,32 +162,20 @@
 										<group>roboconf-agent</group>
 										<filemode>0640</filemode>
 									</mapper>
-								</data>
+								</data-->
 								
 								<!-- Karaf distribution is located under /opt/roboconf-agent -->
 								<data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.zip</src>
+									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
 									<type>archive</type>
 									<includes>**/*</includes>
 									<mapper>
 										<type>perm</type>
 										<prefix>/opt/roboconf-agent</prefix>
-										<strip>2</strip>
+										<strip>1</strip>
 										<user>roboconf-agent</user>
 										<group>roboconf-agent</group>
-									</mapper>
-								</data>
-								
-								<!-- Copy a properties template under /etc/roboconf-agent -->
-								<data>
-									<src>${project.basedir}/src/files/template.properties</src>
-									<type>file</type>
-									<mapper>
-										<type>perm</type>
-										<prefix>/etc/roboconf-agent</prefix>
-										<user>roboconf-agent</user>
-										<group>roboconf-agent</group>
-										<filemode>0640</filemode>
+										<dirmode>755</dirmode>
 									</mapper>
 								</data>
 								
@@ -224,7 +212,7 @@
 								
 								<!-- Man page -->
 								<data>
-									<src>${project.build.directory}/man</src>
+									<src>${project.basedir}/src/files/man</src>
 									<type>directory</type>
 									<mapper>
 										<type>perm</type>
