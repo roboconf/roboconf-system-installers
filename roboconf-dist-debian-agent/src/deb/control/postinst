@@ -38,9 +38,10 @@ ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
 mkdir -p $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 
-mv /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LOG
+ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
+mv /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
 rmdir /opt/roboconf-agent/data
-chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG
+chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
 
 
 chmod 755 $ROBOCONF_AGENT_OPT/bin/karaf

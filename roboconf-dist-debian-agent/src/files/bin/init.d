@@ -43,7 +43,7 @@ PIDFILE=/var/run/$NAME.pid
 export KARAF_HOME=/opt/roboconf-agent
 export KARAF_BASE=/opt/roboconf-agent
 export KARAF_ETC=/etc/roboconf-agent
-export KARAF_DATA=/var/log/roboconf-agent
+export KARAF_DATA=/var/lib/roboconf-agent
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0

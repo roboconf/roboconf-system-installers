@@ -22,19 +22,22 @@
 
 ROBOCONF_AGENT_ETC=/etc/roboconf-agent
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
+ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
 ROBOCONF_AGENT_OPT=/opt/roboconf-agent
 
 # Unregister the agent's automatic startup
 update-rc.d roboconf-agent remove
 
 if [ "$1" = "purge" ]; then
-   # Remove all the log files of the agent
-   rm -rf $ROBOCONF_AGENT_VAR_LOG || true
-   
-   # Remove all the user data
+   # Remove all the work files of the agent
+   rm -rf $ROBOCONF_AGENT_VAR_LIB || true
+ 
+   # Remove all the agent config
    rm -rf $ROBOCONF_AGENT_ETC || true
 fi
  
+# Remove all the log files of the agent
+rm -rf $ROBOCONF_AGENT_VAR_LOG || true
 # Remove all the executables
 rm -rf $ROBOCONF_AGENT_OPT || true   
 

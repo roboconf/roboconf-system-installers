@@ -149,21 +149,6 @@
 						<configuration>
 							<dataSet>
 							
-								<!-- Karaf's etc directory is located under /etc/roboconf-agent/karaf -->
-								<!--data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
-									<type>archive</type>
-									<includes>**/etc/*</includes>
-									<mapper>
-										<type>perm</type>
-										<prefix>/etc/roboconf-agent/karaf</prefix>
-										<strip>2</strip>
-										<user>roboconf-agent</user>
-										<group>roboconf-agent</group>
-										<filemode>0640</filemode>
-									</mapper>
-								</data-->
-								
 								<!-- Karaf distribution is located under /opt/roboconf-agent -->
 								<data>
 									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
@@ -192,7 +177,21 @@
 										<filemode>0755</filemode>
 									</mapper>
 								</data>
-								
+
+								<!-- Copy the log configuration file -->
+								<data>
+									<src>${project.basedir}/src/files/etc/org.ops4j.pax.logging.cfg</src>
+									<dst>org.ops4j.pax.logging.cfg</dst>
+									<type>file</type>
+									<mapper>
+										<type>perm</type>
+										<prefix>/opt/roboconf-agent/etc</prefix>
+										<user>roboconf-agent</user>
+										<group>roboconf-agent</group>
+										<filemode>0644</filemode>
+									</mapper>
+								</data>
+
 								<!-- Licences -->
 								<!--
 								<data>
