@@ -20,9 +20,9 @@
 #
 ################################################################################
 
-# Stop the Agent
+# Stop the DM
 if which invoke-rc.d >/dev/null 2>&1; then
-   invoke-rc.d roboconf-agent stop
+   invoke-rc.d --force roboconf-dm stop
 else
-   /etc/init.d/roboconf-agent stop
+   /etc/init.d/roboconf-dm stop
 fi

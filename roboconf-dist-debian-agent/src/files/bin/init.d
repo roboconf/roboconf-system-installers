@@ -124,10 +124,10 @@ case "$1" in
 	# 'force-reload' alias
 	#
 	log_daemon_msg "Restarting $DESC"
-	do_stop_all_containers
+	do_stop_karaf_agent
 	case "$?" in
 	  0|1)
-		do_start_all_containers
+		do_start_karaf_agent
 		case "$?" in
 			0) log_end_msg 0 ;;
 			1) log_end_msg 1 ;; # Old process is still running

@@ -43,7 +43,6 @@ mv /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
 rmdir /opt/roboconf-agent/data
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
 
-
 chmod 755 $ROBOCONF_AGENT_OPT/bin/karaf
 
 # Register the agent's automatic startup

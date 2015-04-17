@@ -16,12 +16,12 @@
 #
 
 ### BEGIN INIT INFO
-# Provides:          roboconf-agent
+# Provides:          roboconf-dm
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: The startup script for Roboconf's agent
+# Short-Description: The startup script for Roboconf DM
 # Description:       This file should be used to construct scripts to be
 #                    placed in /etc/init.d.
 ### END INIT INFO
@@ -34,11 +34,16 @@
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="Roboconf Agent"
-NAME=roboconf-agent
-DAEMON=/usr/bin/$NAME
+DESC="Roboconf DM"
+NAME=roboconf-dm
+DAEMON=/opt/roboconf-dm/bin/karaf
 SCRIPTNAME=/etc/init.d/$NAME
 RUNDIR=/var/run/$NAME
+PIDFILE=/var/run/$NAME.pid
+export KARAF_HOME=/opt/roboconf-dm
+export KARAF_BASE=/opt/roboconf-dm
+export KARAF_ETC=/etc/roboconf-dm
+export KARAF_DATA=/var/lib/roboconf-dm
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -50,33 +55,29 @@ RUNDIR=/var/run/$NAME
 
 
 #
-# Function that starts all Petals ESB container as daemons/services
+# Function that starts Roboconf DM as a daemon
 #
-do_start_karaf_agent()
+do_start_karaf_dm()
 {
-   log_daemon_msg "Starting Roboconf's agent:"
-	
 	# Return
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon --start --chuid petals --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
+	start-stop-daemon --start --chuid roboconf-dm --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
 		|| return 1
-	start-stop-daemon --start --chuid petals --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- \
+	start-stop-daemon --start --chuid roboconf-dm --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- \
 		$DAEMON_ARGS \
 		|| return 2
 }
 
-do_stop_karaf_agent()
+do_stop_karaf_dm()
 {
-   log_daemon_msg "Starting Roboconf's agent:"
-   
 	# Return
 	#   0 if daemon has been stopped
 	#   1 if daemon was already stopped
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
-	start-stop-daemon --stop --chuid petals --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
+	start-stop-daemon --stop --chuid roboconf-dm --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
 	RETVAL="$?"
 	[ "$RETVAL" = 2 ] && return 2
 	rm -f $PIDFILE
@@ -99,11 +100,11 @@ do_reload() {
 case "$1" in
   start)
 	[ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
-	do_start_karaf_agent
+	do_start_karaf_dm
 	;;
   stop)
 	[ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
-	do_stop_karaf_agent
+	do_stop_karaf_dm
 	;;
   status)
    status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
@@ -123,10 +124,10 @@ case "$1" in
 	# 'force-reload' alias
 	#
 	log_daemon_msg "Restarting $DESC" "$NAME"
-	do_stop_all_containers
+	do_stop_karaf_dm
 	case "$?" in
 	  0|1)
-		do_start_all_containers
+		do_start_karaf_dm
 		case "$?" in
 			0) log_end_msg 0 ;;
 			1) log_end_msg 1 ;; # Old process is still running

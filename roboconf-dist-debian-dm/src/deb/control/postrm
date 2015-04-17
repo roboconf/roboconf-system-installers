@@ -20,20 +20,24 @@
 #
 ################################################################################
 
-ROBOCONF_AGENT_ETC=/etc/roboconf-agent
-ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
-ROBOCONF_AGENT_OPT=/opt/roboconf-agent
+ROBOCONF_DM_ETC=/etc/roboconf-dm
+ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
+ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
+ROBOCONF_DM_OPT=/opt/roboconf-dm
 
-# Unregister the agent's automatic startup
-update-rc.d roboconf-agent remove
+# Unregister the dm's automatic startup
+update-rc.d roboconf-dm remove
 
 if [ "$1" = "purge" ]; then
-   # Remove all the log files of the agent
-   rm -rf $ROBOCONF_AGENT_VAR_LOG || true
-   
-   # Remove all the user data
-   rm -rf $ROBOCONF_AGENT_ETC || true
-   
-   # Remove all the executables
-   rm -rf $ROBOCONF_AGENT_OPT || true   
+   # Remove all the work files of the dm
+   rm -rf $ROBOCONF_DM_VAR_LIB || true
+ 
+   # Remove all the dm config
+   rm -rf $ROBOCONF_DM_ETC || true
 fi
+ 
+# Remove all the log files of the dm
+rm -rf $ROBOCONF_DM_VAR_LOG || true
+# Remove all the executables
+rm -rf $ROBOCONF_DM_OPT || true   
+

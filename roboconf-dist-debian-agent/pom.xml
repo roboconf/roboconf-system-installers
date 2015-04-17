@@ -38,7 +38,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-    <groupId>net.roboconf</groupId>
+	<groupId>net.roboconf</groupId>
 	<artifactId>roboconf-dist-debian-agent</artifactId>
 	<name>Roboconf :: Debian Package for the Agent</name>
 	<packaging>pom</packaging>
@@ -81,7 +81,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -94,7 +94,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Zip the Man pages -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -115,7 +115,7 @@
 					</execution>
 				</executions>
 			</plugin>
-	
+
 			<!-- Copy the Karaf distribution of the agent in the target directory -->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -134,7 +134,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Then, generate the Debian package -->
 			<plugin>
 				<artifactId>jdeb</artifactId>
@@ -163,7 +163,7 @@
 										<dirmode>755</dirmode>
 									</mapper>
 								</data>
-								
+
 								<!-- Copy the init.d script -->
 								<data>
 									<src>${project.basedir}/src/files/bin/init.d</src>
@@ -195,7 +195,7 @@
 								<!-- Licences -->
 								<!--
 								<data>
-									<src>${project.build.directory}/dependency/petals-esb-default-zip-${petals-esb.version}.zip</src>
+									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
 									<type>archive</type>
 									<includes>**/licenses/*</includes>
 									<mapper>
@@ -208,7 +208,7 @@
 									</mapper>
 								</data>
 								-->
-								
+
 								<!-- Man page -->
 								<data>
 									<src>${project.basedir}/src/files/man</src>
@@ -221,7 +221,7 @@
 										<filemode>0644</filemode>
 									</mapper>
 								</data>
-								
+
 								<!-- Copyright -->
 								<data>
 									<type>link</type>

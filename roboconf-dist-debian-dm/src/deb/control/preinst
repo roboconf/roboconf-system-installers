@@ -20,9 +20,9 @@
 #
 ################################################################################
 
-# Create the system group and user running the Roboconf agent
-USER=roboconf-agent
-GROUP=roboconf-agent
+# Create the system group and user running the Roboconf dm
+USER=roboconf-dm
+GROUP=roboconf-dm
 
 groups "$GROUP" > /dev/null 2>&1 || addgroup --system "$GROUP"
 id "$USER" > /dev/null 2>&1 || adduser --system --no-create-home --ingroup "$GROUP" "$USER"

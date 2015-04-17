@@ -21,35 +21,36 @@
 ################################################################################
 
 # The 'roboconf' user was created in the pre-install script
-USER=roboconf-agent
-GROUP=roboconf-agent
+USER=roboconf-dm
+GROUP=roboconf-dm
 
 # Create the directory /etc/ directories
-ROBOCONF_AGENT_ETC=/etc/roboconf-agent
-mkdir -p $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
+ROBOCONF_DM_ETC=/etc/roboconf-dm
+mkdir -p $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
+chown $USER:$GROUP $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
 
-ROBOCONF_AGENT_KARAF_ETC=/etc/roboconf-agent
-mkdir -p $ROBOCONF_AGENT_KARAF_ETC > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_AGENT_KARAF_ETC > /dev/null 2>&1 || true
+mv /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
+rmdir /opt/roboconf-dm/etc
+chown $USER:$GROUP $ROBOCONF_DM_ETC
 
-# Create the directory /var/log/roboconf-agent
-ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
-mkdir -p $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
+# Create the directory /var/log/roboconf-dm
+ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
+mkdir -p $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
+chown $USER:$GROUP $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 
-# Create the directory /opt/roboconf-agent
-ROBOCONF_AGENT_OPT=/opt/roboconf-agent
-mkdir -p $ROBOCONF_AGENT_OPT > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_AGENT_OPT > /dev/null 2>&1 || true
+ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
+mv /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
+rmdir /opt/roboconf-dm/data
+chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
+chmod 755 $ROBOCONF_DM_OPT/bin/karaf
 
-# Register the agent's automatic startup
-update-rc.d roboconf-agent defaults
+# Register the dm's automatic startup
+update-rc.d roboconf-dm defaults
 
 # Start
 if which invoke-rc.d >/dev/null 2>&1; then
-   invoke-rc.d roboconf-agent start
+   invoke-rc.d --force roboconf-dm start
 else
-   /etc/init.d/roboconf-agent start
+   /etc/init.d/roboconf-dm start
 fi
