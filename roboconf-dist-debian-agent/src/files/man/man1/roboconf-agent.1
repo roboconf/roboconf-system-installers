@@ -1,49 +1,36 @@
-.TH roboconf-agent 1 "${current-date} (svn#${buildNumber})"
+.TH roboconf-agent 1 "${current-date}"
 .SH NAME
-Roboconf Agent
+Roboconf agent (Deployment daemon)
 .SH SYNOPSIS
-.B roboconf-agent -u
-.I container-cfg-url
-.B [stop] [-e]
+.B roboconf-agent
+.B [stop] [start] [restart]
 .br
-.B roboconf-agent -h
-.br
-.B roboconf-agent -V
 .SH DESCRIPTION
-Roboconf Agent is a local manager for a Roboconf installation.
+Roboconf agent is the Roboconf deployment daemon, in charge of deploying and (re)configuring applications on the local system (eg. using puppet or bash scripts).
 .PP
 .B roboconf-agent
-is used to start and stop manually a Roboconf Agent container.
+is used to start and stop manually the Roboconf agent daemon, and generally placed in /etc/init.d as an automatic boot-time startup script.
+The Roboconf agent is generally launched as root, because it may have to install software packages and/or update system configuration.
 .SH OPTIONS
 .TP
-\-e, \-\-error
-Print the extended error message (stack-trace).
-.TP
-\-h, \-\-help
-Print usage.
-.TP
-\-u, \-\-url container-cfg-url
-The URL of the Petals container configuration.
-.TP
-\-V, \-\-version
-Print the version number and exit.
+start
+Start the Roboconf agent daemon.
 .TP
 stop
-Stop the local Roboconf Agent container
+Stop the Roboconf agent daemon.
+.TP
+restart
+Restart the Roboconf agent daemon.
 .SH FILES
 .TP
-server.properties
-The configuration base file of a Roboconf Agent container. See petal-esb(5) for further details.
+net.roboconf.agent.configuration.cfg
+The base configuration file of a Roboconf agent. Needs to be updated, so that the agent knows (at least) on which IaaS it is deployed.
+Generally located in /etc/roboconf-agent .
 .TP
-topology.xml
-The description of the Roboconf Agent topology. See roboconf-agent(5) for further details.
-.TP
-logger.properties
-The configuration of the logging system. See roboconf-agent(5) for further details.
-.TP
-log4j.properties
-The configuration of the Log4J logging system. See roboconf-agent(5) for further details.
+org.ops4j.pax.logging.cfg
+The configuration of the logging system.
+Generally located in /etc/roboconf-agent, and by default logging in /var/log/roboconf-agent .
 .SH AUTHOR
-Vincent ZURCZAK - Linagora <vincent dot zurczak at linagora dot com>
+Pierre-Yves GIBELLO - Linagora <pierre-yves dot gibello at linagora dot com>
 .SH "SEE ALSO"
-Roboconf Agent is documented on Roboconf's web site: http://roboconf.net
+Roboconf agent is documented on Roboconf's web site: http://roboconf.net
