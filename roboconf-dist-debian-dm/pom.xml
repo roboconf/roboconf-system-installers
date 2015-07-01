@@ -34,7 +34,7 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.4</version>
+		<version>0.5-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
