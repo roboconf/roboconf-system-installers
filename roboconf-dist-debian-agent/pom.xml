@@ -41,13 +41,14 @@
 	<groupId>net.roboconf</groupId>
 	<artifactId>roboconf-dist-debian-agent</artifactId>
 	<name>Roboconf :: Debian Package for the Agent</name>
+	<version>${project.parent.version}-${package.build.version}</version>
 	<packaging>pom</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.roboconf</groupId>
 			<artifactId>roboconf-karaf-dist-agent</artifactId>
-			<version>${project.version}</version>
+			<version>${project.parent.version}</version>
 			<type>tar.gz</type>
 		</dependency>
 	</dependencies>
@@ -151,7 +152,7 @@
 							
 								<!-- Karaf distribution is located under /opt/roboconf-agent -->
 								<data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
+									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.parent.version}.tar.gz</src>
 									<type>archive</type>
 									<includes>**/*</includes>
 									<mapper>
@@ -191,24 +192,7 @@
 										<filemode>0644</filemode>
 									</mapper>
 								</data>
-
-								<!-- Licences -->
-								<!--
-								<data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.version}.tar.gz</src>
-									<type>archive</type>
-									<includes>**/licenses/*</includes>
-									<mapper>
-										<type>perm</type>
-										<prefix>/usr/share/roboconf-agent/licenses</prefix>
-										<strip>2</strip>
-										<user>root</user>
-										<group>root</group>
-										<filemode>0644</filemode>
-									</mapper>
-								</data>
-								-->
-
+								
 								<!-- Man page -->
 								<data>
 									<src>${project.basedir}/src/files/man</src>
