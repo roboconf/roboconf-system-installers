@@ -43,7 +43,7 @@ mv /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
 rmdir /opt/roboconf-dm/data
 chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
-chmod 755 $ROBOCONF_DM_OPT/bin/karaf
+chmod 755 /opt/roboconf-dm/bin/karaf
 
 # Register the dm's automatic startup
 update-rc.d roboconf-dm defaults

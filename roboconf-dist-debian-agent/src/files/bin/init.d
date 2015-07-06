@@ -107,7 +107,7 @@ case "$1" in
 	do_stop_karaf_agent
 	;;
   status)
-   status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+   status_of_proc "/usr/bin/java" "$NAME" && exit 0 || exit $?
    ;;
   #reload|force-reload)
 	#
