@@ -20,6 +20,8 @@
 #
 ################################################################################
 
+set -e
+
 ROBOCONF_AGENT_ETC=/etc/roboconf-agent
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
 ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent

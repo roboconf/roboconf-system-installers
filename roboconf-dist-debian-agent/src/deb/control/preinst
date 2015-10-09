@@ -20,6 +20,8 @@
 #
 ################################################################################
 
+set -e
+
 # Create the system group and user running the Roboconf agent
 USER=roboconf-agent
 GROUP=roboconf-agent
