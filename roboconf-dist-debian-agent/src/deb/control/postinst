@@ -41,7 +41,9 @@ chown $USER:$GROUP $ROBOCONF_AGENT_ETC
 # Ask for target-id using debconf (see debconf "templates" file),
 # then replace target-id in roboconf-agent config (according to user input).
 db_get roboconf-agent/target || true
-sed -i "/target-id =/c target-id = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
+if [ "$RET" != "other" ]; then
+    sed -i "/target-id =/c target-id = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
+fi
 
 # Create the directory /var/log/roboconf-agent
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent

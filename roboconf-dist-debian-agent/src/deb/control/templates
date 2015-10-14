@@ -1,6 +1,6 @@
 Template: roboconf-agent/target
 Type: select
-Choices: docker, jclouds, iaas-openstack, iaas-ec2, iaas-azure, in-memory
-Default: docker
+Choices: iaas-openstack, iaas-ec2, iaas-azure, other
+Default: other
 Description: Enter Roboconf target-id to specify deployment target:
 
