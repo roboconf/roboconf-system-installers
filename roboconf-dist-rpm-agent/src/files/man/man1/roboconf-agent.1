@@ -1,0 +1,36 @@
+.TH roboconf-agent 1 "${current-date}"
+.SH NAME
+Roboconf agent (Deployment daemon)
+.SH SYNOPSIS
+.B roboconf-agent
+.B [stop] [start] [restart]
+.br
+.SH DESCRIPTION
+Roboconf agent is the Roboconf deployment daemon, in charge of deploying and (re)configuring applications on the local system (eg. using puppet or bash scripts).
+.PP
+.B roboconf-agent
+is used to start and stop manually the Roboconf agent daemon, and generally placed in /etc/init.d as an automatic boot-time startup script.
+The Roboconf agent is generally launched as root, because it may have to install software packages and/or update system configuration.
+.SH OPTIONS
+.TP
+start
+Start the Roboconf agent daemon.
+.TP
+stop
+Stop the Roboconf agent daemon.
+.TP
+restart
+Restart the Roboconf agent daemon.
+.SH FILES
+.TP
+net.roboconf.agent.configuration.cfg
+The base configuration file of a Roboconf agent. Needs to be updated, so that the agent knows (at least) on which IaaS it is deployed.
+Generally located in /etc/roboconf-agent .
+.TP
+org.ops4j.pax.logging.cfg
+The configuration of the logging system.
+Generally located in /etc/roboconf-agent, and by default logging in /var/log/roboconf-agent .
+.SH AUTHOR
+Pierre-Yves GIBELLO - Linagora <pierre-yves dot gibello at linagora dot com>
+.SH "SEE ALSO"
+Roboconf agent is documented on Roboconf's web site: http://roboconf.net

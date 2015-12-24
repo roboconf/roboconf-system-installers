@@ -1,0 +1,37 @@
+.TH roboconf-dm 1 "${current-date}"
+.SH NAME
+Roboconf DM (Deployment Manager)
+.SH SYNOPSIS
+.B roboconf-dm
+.B [stop] [start] [restart]
+.br
+.SH DESCRIPTION
+Roboconf DM is the Roboconf deployment manager, in charge of launching IaaS
+VMs and deploying applications on them.
+.PP
+.B roboconf-dm
+is used to start and stop manually the Roboconf DM daemon, and generally placed in /etc/init.d as an automatic boot-time startup script.
+The Roboconf DM is generally launched as a user called "roboconf-dm" (non-privileged).
+.SH OPTIONS
+.TP
+start
+Start the Roboconf DM daemon.
+.TP
+stop
+Stop the Roboconf DM daemon.
+.TP
+restart
+Restart the Roboconf DM daemon.
+.SH FILES
+.TP
+net.roboconf.dm.configuration.cfg
+The base configuration file of a Roboconf DM. Needs to be updated, so that the DM knows (at least) the IP and user/password of the messaging system (eg. RabbitMQ).
+Generally located in /etc/roboconf-dm .
+.TP
+org.ops4j.pax.logging.cfg
+The configuration of the logging system.
+Generally located in /etc/roboconf-dm, and by default logging in /var/log/roboconf-dm .
+.SH AUTHOR
+Pierre-Yves GIBELLO - Linagora <pierre-yves dot gibello at linagora dot com>
+.SH "SEE ALSO"
+Roboconf DM is documented on Roboconf's web site: http://roboconf.net
