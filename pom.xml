@@ -48,6 +48,8 @@
 		<!--<module>roboconf-linux-install-scripts</module>-->
 		<module>roboconf-dist-debian-agent</module>
 		<module>roboconf-dist-debian-dm</module>
+		<module>roboconf-dist-rpm-agent</module>
+		<module>roboconf-dist-rpm-dm</module>
 	</modules>
 	
 	<build>
