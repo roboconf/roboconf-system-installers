@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#  Copyright 2014 Linagora, Université Joseph Fourier
+#  Copyright 2015-2016 Linagora, Université Joseph Fourier, Floralis
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -41,12 +41,6 @@ chown $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 cp -r /opt/roboconf-agent/etc/* $ROBOCONF_AGENT_ETC
 chown $USER:$GROUP $ROBOCONF_AGENT_ETC
 
-# Ask for target-id using debconf (see debconf "templates" file),
-# then replace target-id in roboconf-agent config (according to user input).
-#db_get roboconf-agent/target || true
-#if [ "$RET" != "other" ]; then
-#    sed -i "/target-id =/c target-id = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
-#fi
 
 # Create the directory /var/log/roboconf-agent
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent

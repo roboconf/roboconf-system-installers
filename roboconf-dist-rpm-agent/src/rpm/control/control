@@ -3,7 +3,7 @@ Version: [[version]]
 Section: contrib/java
 Priority: optional
 Architecture: all
-Depends: debconf (>= 1.5), default-jre-headless (>= 1.7)
-Maintainer: Pierre-Yves Gibello <pygibello@linagora.com>
+Depends: default-jre-headless (>= 1.7)
+Maintainer: Amadou Diarra <amadou.diarra@imag.fr>
 Description: Roboconf Agent
 Distribution: development

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-   Copyright 2014-2015 Linagora, Université Joseph Fourier, Floralis
+   Copyright 2014-2016 Linagora, Université Joseph Fourier, Floralis
 
    The present code is developed in the scope of the joint LINAGORA -
    Université Joseph Fourier - Floralis research program and is designated
@@ -51,16 +51,7 @@
 			<version>${project.parent.version}</version>
 			<type>tar.gz</type>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.codehaus.mojo</groupId> -->
-<!-- 			<artifactId>rpm-maven-plugin</artifactId> -->
-<!-- 			<version>2.1.4</version> -->
-<!-- 		</dependency> -->
 	</dependencies>
-	
-<!-- 	<properties> -->
-<!--         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
-<!--     </properties> -->
 
 	<build>
 		<resources>
@@ -144,28 +135,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- unpack dependencies -->
-<!-- 			<plugin> -->
-<!-- 				<artifactId>maven-dependency-plugin</artifactId> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<phase>package</phase> -->
-<!-- 						<id>unpack-dependencies</id> -->
-<!-- 						<goals> -->
-<!-- 							<goal>unpack-dependencies</goal> -->
-<!-- 						</goals> -->
-<!-- 						<configuration> -->
-<!-- 							<overWriteReleases>false</overWriteReleases> -->
-<!-- 							<overWriteSnapshots>false</overWriteSnapshots> -->
-<!-- 							<overWriteIfNewer>true</overWriteIfNewer> -->
-<!-- 							<excludeTransitive>true</excludeTransitive> -->
-<!-- 							<outputDirectory>${project.build.directory}/dependency</outputDirectory> -->
-<!-- 						</configuration> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
 			
-
 			<!-- Then, generate the RPM package -->
 			<plugin>
 			    <groupId>org.codehaus.mojo</groupId> 
@@ -190,7 +160,6 @@
 						    		<sources>
 						    			<source>
 						    				<location>${project.build.directory}/dependency/roboconf-karaf-dist-agent-${project.parent.version}.tar.gz</location>
-<!-- 						    				<destination>roboconf-karaf-dist-agent-0.6-SNAPSHOT.tar.gz</destination> -->
 						    			</source>
 						    		</sources>
 						    	</mapping>
@@ -208,49 +177,10 @@
 						    				<destination>roboconf-agent</destination>
 						    			</source>
 						    		</sources>
-						    	</mapping>
-						    	
-						    <!--Copy the log configuration file-->	
-<!-- 						    	<mapping> -->
-<!-- 						    		<directory>/opt/roboconf-agent/etc</directory> -->
-<!-- 						    		<directoryIncluded>false</directoryIncluded> -->
-<!-- 						    		<username>roboconf-agent</username> -->
-<!-- 									<groupname>roboconf-agent</groupname> -->
-<!-- 									<filemode>644</filemode> -->
-<!-- 									<sources> -->
-<!-- 										<source> -->
-<!-- 											<location>${project.basedir}/src/files/etc/org.ops4j.pax.logging.cfg</location> -->
-<!-- 											<destination>org.ops4j.pax.logging.cfg</destination> -->
-<!-- 										</source> -->
-<!-- 									</sources> -->
-<!-- 						    	</mapping> -->
-						    	
-						    <!-- Man page -->	
-<!-- 						    	<mapping> -->
-<!-- 						    		<directory>/usr/share/man</directory> -->
-<!-- 						    		<username>root</username> -->
-<!-- 									<groupname>root</groupname> -->
-<!-- 									<sources> -->
-<!-- 										<source> -->
-<!-- 											<location>${project.basedir}/src/files/man</location> -->
-<!-- 										</source> -->
-<!-- 									</sources> -->
-<!-- 						    	</mapping>	 -->
-						    	
-						    <!--  Copyright -->	
-<!-- 						    	<mapping> -->
-<!-- 						    		<directory>/usr/share/common-licenses/Apache-2.0</directory> -->
-<!-- 						    		<sources> -->
-<!-- 						    			<softlinkSource> -->
-<!-- 						    				<location>/usr/share/doc/roboconf-agent/copyright</location> -->
-<!-- 						    			</softlinkSource> -->
-<!-- 						    		</sources> -->
-<!-- 						    	</mapping> -->
-						    	
+						    	</mapping>						    	
 						    </mappings>
 						    
 						    <preinstallScriptlet>
-<!--             					<script>echo "installing now"</script> -->
             					<scriptFile>${project.basedir}/src/rpm/control/preinst</scriptFile>
             					<fileEncoding>utf-8</fileEncoding>
           					</preinstallScriptlet>
