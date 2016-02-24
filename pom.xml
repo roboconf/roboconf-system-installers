@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-   Copyright 2014-2015 Linagora, Université Joseph Fourier, Floralis
+   Copyright 2014-2016 Linagora, Université Joseph Fourier, Floralis
 
    The present code is developed in the scope of the joint LINAGORA -
    Université Joseph Fourier - Floralis research program and is designated
@@ -48,8 +48,10 @@
 		<!--<module>roboconf-linux-install-scripts</module>-->
 		<module>roboconf-dist-debian-agent</module>
 		<module>roboconf-dist-debian-dm</module>
+		<!-- 
 		<module>roboconf-dist-rpm-agent</module>
 		<module>roboconf-dist-rpm-dm</module>
+		 -->
 	</modules>
 	
 	<build>
