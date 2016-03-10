@@ -34,8 +34,8 @@ ROBOCONF_AGENT_ETC=/etc/roboconf-agent
 mkdir -p $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 
-mv /opt/roboconf-agent/etc/* $ROBOCONF_AGENT_ETC
-rmdir /opt/roboconf-agent/etc
+mv -n /opt/roboconf-agent/etc/* $ROBOCONF_AGENT_ETC
+rm -rf /opt/roboconf-agent/etc
 chown $USER:$GROUP $ROBOCONF_AGENT_ETC
 
 # Ask for target-id using debconf (see debconf "templates" file),
@@ -51,8 +51,8 @@ mkdir -p $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 
 ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
-mv /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
-rmdir /opt/roboconf-agent/data
+mv -n /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
+rm -rf /opt/roboconf-agent/data
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
 
 # Register the agent's automatic startup
@@ -65,4 +65,3 @@ if which invoke-rc.d >/dev/null 2>&1; then
 else
    /etc/init.d/roboconf-agent start
 fi
-

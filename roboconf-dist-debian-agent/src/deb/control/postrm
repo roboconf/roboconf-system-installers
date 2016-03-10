@@ -40,6 +40,6 @@ fi
  
 # Remove all the log files of the agent
 rm -rf $ROBOCONF_AGENT_VAR_LOG || true
+
 # Remove all the executables
 rm -rf $ROBOCONF_AGENT_OPT || true   
-

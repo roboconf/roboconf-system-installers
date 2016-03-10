@@ -29,8 +29,8 @@ ROBOCONF_DM_ETC=/etc/roboconf-dm
 mkdir -p $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
 
-mv /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
-rmdir /opt/roboconf-dm/etc
+mv -n /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
+rm -rf /opt/roboconf-dm/etc
 chown $USER:$GROUP $ROBOCONF_DM_ETC
 
 # Create the directory /var/log/roboconf-dm
@@ -39,8 +39,8 @@ mkdir -p $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 
 ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
-mv /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
-rmdir /opt/roboconf-dm/data
+mv -n /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
+rm -rf /opt/roboconf-dm/data
 chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
 chmod 755 /opt/roboconf-dm/bin/karaf
