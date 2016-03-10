@@ -28,10 +28,10 @@ USER=roboconf-dm
 GROUP=roboconf-dm
 RPM_SOURCE_DIR=/opt/roboconf-dm
 
+# FIXME: What??
 tar -xzvf $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-0.6-SNAPSHOT.tar.gz
 cp -r roboconf-karaf-dist-dm-0.6-SNAPSHOT/* $RPM_SOURCE_DIR
 rm -rf roboconf-karaf-dist-dm-0.6-SNAPSHOT
-#rm $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-0.6-SNAPSHOT.tar.gz
 
 # Create the directory /etc/ directories
 ROBOCONF_DM_ETC=/etc/roboconf-dm
@@ -41,27 +41,16 @@ chown $USER:$GROUP $ROBOCONF_dm_ETC > /dev/null 2>&1 || true
 cp -r /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
 chown $USER:$GROUP $ROBOCONF_DM_ETC
 
-# Ask for target-id using debconf (see debconf "templates" file),
-# then replace target-id in roboconf-dm config (according to user input).
-#db_get roboconf-dm/target || true
-#if [ "$RET" != "other" ]; then
-#    sed -i "/target-id =/c target-id = $RET" $ROBOCONF_dm_ETC/net.roboconf.dm.configuration.cfg
-#fi
-
 # Create the directory /var/log/roboconf-dm
-ROBOCONF_dm_VAR_LOG=/var/log/roboconf-dm
-mkdir -p $ROBOCONF_dm_VAR_LOG > /dev/null 2>&1 || true
+ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
+mkdir -p $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_dm_VAR_LOG > /dev/null 2>&1 || true
 
-ROBOCONF_dm_VAR_LIB=/var/lib/roboconf-dm
-mv /opt/roboconf-dm/data/* $ROBOCONF_dm_VAR_LIB
-rmdir /opt/roboconf-dm/data
-chown $USER:$GROUP $ROBOCONF_dm_VAR_LIB
+ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
+mv -n /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
+rm -rf /opt/roboconf-dm/data
+chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
-# Register the dm's automatic startup
-#update-rc.d roboconf-dm defaults
-#chkconfig --add roboconf-dm 
 # Start
 set +e
 /etc/init.d/roboconf-dm start
-

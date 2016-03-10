@@ -27,15 +27,13 @@ ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
 ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
 ROBOCONF_AGENT_OPT=/opt/roboconf-agent
 
-#echo "Uninstall Roboconf agent"
-#/etc/init.d/roboconf-agent stop
-
- rm -rf $ROBOCONF_AGENT_VAR_LIB || true
- rm -rf $ROBOCONF_AGENT_ETC || true
+# Unlike with Debian packages, there is no "purge" with RPM.
+# So, we remove everything.
+rm -rf $ROBOCONF_AGENT_VAR_LIB || true
+rm -rf $ROBOCONF_AGENT_ETC || true
  
 # Remove all the log files of the agent
 rm -rf $ROBOCONF_AGENT_VAR_LOG || true
+
 # Remove all the executables
-
 rm -rf $ROBOCONF_AGENT_OPT || true   
-
