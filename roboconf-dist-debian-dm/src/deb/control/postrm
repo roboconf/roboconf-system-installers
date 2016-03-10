@@ -38,6 +38,6 @@ fi
  
 # Remove all the log files of the dm
 rm -rf $ROBOCONF_DM_VAR_LOG || true
+
 # Remove all the executables
 rm -rf $ROBOCONF_DM_OPT || true   
-

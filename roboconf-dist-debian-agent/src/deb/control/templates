@@ -3,4 +3,3 @@ Type: select
 Choices: iaas-openstack, iaas-ec2, iaas-azure, iaas-vmware, other
 Default: other
 Description: Enter Roboconf target-id to specify deployment target:
-
