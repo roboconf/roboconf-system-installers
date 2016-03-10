@@ -27,13 +27,13 @@ ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
 ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
 ROBOCONF_DM_OPT=/opt/roboconf-dm
 
-
- rm -rf $ROBOCONF_DM_VAR_LIB || true
- rm -rf $ROBOCONF_DM_ETC || true
+# Unlike with Debian packages, there is no "purge" with RPM.
+# So, we remove everything.
+rm -rf $ROBOCONF_DM_VAR_LIB || true
+rm -rf $ROBOCONF_DM_ETC || true
  
 # Remove all the log files of the agent
 rm -rf $ROBOCONF_DM_VAR_LOG || true
+
 # Remove all the executables
-
 rm -rf $ROBOCONF_DM_OPT || true   
-

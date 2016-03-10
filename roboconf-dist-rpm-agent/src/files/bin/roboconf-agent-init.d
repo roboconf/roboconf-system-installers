@@ -30,8 +30,6 @@ export KARAF_BASE=/opt/roboconf-agent
 export KARAF_ETC=/etc/roboconf-agent
 export KARAF_DATA=/var/lib/roboconf-agent
 export JAVA_HOME=/usr/lib/jvm/jre
-# Declare variables for roboconf-agent
-ROBOCONF_AGENT_DIR=/opt/roboconf-agent
 
 
 start() {

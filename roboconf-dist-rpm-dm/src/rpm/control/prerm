@@ -21,6 +21,5 @@
 ################################################################################
 
 # Stop the DM
-echo "Stop the DM"
+echo "Stopping the DM"
 /etc/init.d/roboconf-dm stop
-

@@ -23,4 +23,3 @@
 # Stop the Agent
 echo "Uninstall Roboconf agent"
 /etc/init.d/roboconf-agent stop
-

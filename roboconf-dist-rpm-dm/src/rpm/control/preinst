@@ -28,4 +28,3 @@ GROUP=roboconf-dm
 
 groups "$GROUP" > /dev/null 2>&1 || groupadd --system "$GROUP"
 id "$USER" > /dev/null 2>&1 || adduser --system --no-create-home --gid "$GROUP" "$USER"
-

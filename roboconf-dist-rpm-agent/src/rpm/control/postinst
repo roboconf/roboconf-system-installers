@@ -28,10 +28,10 @@ USER=roboconf-agent
 GROUP=roboconf-agent
 RPM_SOURCE_DIR=/opt/roboconf-agent
 
+// FIXME: what????
 tar -xzvf $RPM_SOURCE_DIR/roboconf-karaf-dist-agent-0.6-SNAPSHOT.tar.gz
 cp -r roboconf-karaf-dist-agent-0.6-SNAPSHOT/* $RPM_SOURCE_DIR
 rm -rf roboconf-karaf-dist-agent-0.6-SNAPSHOT
-#rm $RPM_SOURCE_DIR/roboconf-karaf-dist-agent-0.6-SNAPSHOT.tar.gz
 
 # Create the directory /etc/ directories
 ROBOCONF_AGENT_ETC=/etc/roboconf-agent
@@ -41,19 +41,16 @@ chown $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 cp -r /opt/roboconf-agent/etc/* $ROBOCONF_AGENT_ETC
 chown $USER:$GROUP $ROBOCONF_AGENT_ETC
 
-
 # Create the directory /var/log/roboconf-agent
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
 mkdir -p $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 
 ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
-mv /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
-rmdir /opt/roboconf-agent/data
+mv -n /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
+rm -rf /opt/roboconf-agent/data
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
 
 # Start
 set +e
 /etc/init.d/roboconf-agent start
-
-
