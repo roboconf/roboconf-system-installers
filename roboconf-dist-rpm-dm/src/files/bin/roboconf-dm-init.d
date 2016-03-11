@@ -14,17 +14,25 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Source function library.
+### BEGIN INIT INFO
+# Provides:          roboconf-dm
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: The startup script for Roboconf DM
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
+### END INIT INFO
 
-. /lib/lsb/init-functions
+# Do NOT "set -e"
+
 RETVAL=0
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="Roboconf DM"
 NAME=roboconf-dm
-DAEMON=/opt/roboconf-dm/bin/karaf
-
 PIDFILE=/var/run/$NAME.pid
-# Set environment variables for Roboconf-agent
+
+# Set environment variables for the DM
 export KARAF_HOME=/opt/roboconf-dm
 export KARAF_BASE=/opt/roboconf-dm
 export KARAF_ETC=/etc/roboconf-dm
@@ -33,27 +41,44 @@ export JAVA_HOME=/usr/lib/jvm/jre
 
 
 start() {
-        echo -n "Starting $NAME: "
-        start_daemon $DAEMON  &
-        echo $! > $PIDFILE
-        RETVAL=$?
-        echo
+        RETVAL=0
+        echo "Starting $NAME... "
+        if [ ! -f $PIDFILE ]; then
+            cd ${KARAF_HOME}/bin && ./start
+	        echo $! > $PIDFILE
+	        RETVAL=$?
+	        echo "Done."
+        else
+            echo "Karaf is considered as already running since $PIDFILE exists."
+            echo "Please, consider using 'status' and/or 'restart'."
+        fi
+
         return $RETVAL
 }
 
 stop() {
-        echo -n "Shutting down $NAME: "
+        echo "Shutting down $NAME..."
         RETVAL=$?
-        rm -f $PIDFILE
-        ROBOCONF_DM_PIDS=`ps aux | grep roboconf-dm | grep -v stop | grep -v grep | awk '{print $2}' `
-        for pid in $ROBOCONF_DM_PIDS
-        do
+        
+        if [ -f $PIDFILE ]; then
+        	cd ${KARAF_HOME}/bin && ./stop
+        	rm -f $PIDFILE
+        else
+        	echo "Karaf is not considered as already running since $PIDFILE exists."
+            echo "Searching for PIDs to kill savagely..."
+
+            ROBOCONF_DM_PIDS=`ps aux | grep roboconf-dm | grep -v stop | grep -v restart | grep -v grep | awk '{print $2}' `
+            for pid in $ROBOCONF_DM_PIDS
+            do
+                echo "Killing process $pid..."
                 kill -9 $pid
-        done;
+            done;
+        fi
+
+        echo "Done."
         echo
         return $RETVAL
 }
-
 
 case "$1" in
     start)
@@ -63,14 +88,14 @@ case "$1" in
         stop
         ;;
     status)
-        . /etc/init.d/functions && status -p $PIDFILE $NAME
+        cd ${KARAF_HOME}/bin && ./status
         ;;
     restart)
         stop
         start
         ;;
     *)
-        echo "Usage: $prog {start|stop|status|restart}"
+        echo "Usage: $NAME {start|stop|status|restart}"
         exit 1
         ;;
 esac

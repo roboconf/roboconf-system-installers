@@ -178,6 +178,20 @@
 						    			</source>
 						    		</sources>
 						    	</mapping>
+						    	
+						    	<!-- Man page -->
+						    	<mapping>
+						    		<directory>/tmp/man</directory>
+						    		<directoryIncluded>false</directoryIncluded>
+						    		<username>root</username>
+						    		<groupname>root</groupname>
+						    		<filemode>0644</filemode>
+						    		<sources>
+						    			<source>
+						    				<location>${project.basedir}/src/files/man/man1/roboconf-dm.1</location>
+						    			</source>
+						    		</sources>
+						    	</mapping>
 						    </mappings>
 						    
 						    <preinstallScriptlet>
@@ -199,6 +213,14 @@
           						<scriptFile>${project.basedir}/src/rpm/control/postrm</scriptFile>
           						<fileEncoding>utf-8</fileEncoding>
           					</postremoveScriptlet>
+
+							<requires>
+								<require>java &gt;= 1.7</require>
+							</requires>
+							
+							<provides>
+								<provide>roboconf-dm</provide>
+							</provides>
 
 						</configuration> 
 					</execution>
