@@ -22,34 +22,40 @@
 
 set -e
 
-
 # The 'roboconf' user was created in the pre-install script
 USER=roboconf-dm
 GROUP=roboconf-dm
 RPM_SOURCE_DIR=/opt/roboconf-dm
 
-# FIXME: What??
-tar -xzvf $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-0.6-SNAPSHOT.tar.gz
-cp -r roboconf-karaf-dist-dm-0.6-SNAPSHOT/* $RPM_SOURCE_DIR
-rm -rf roboconf-karaf-dist-dm-0.6-SNAPSHOT
+# Extract the TAR.GZ in the current directory.
+# Do not export the root directory (the one which contains the Roboconf version).
+tar -xzvf $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-*.tar.gz -C $RPM_SOURCE_DIR --strip 1
 
-# Create the directory /etc/ directories
+# Delete the TAR.GZ
+rm -rf $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-*.tar.gz
+
+# Create the /ETC directory
 ROBOCONF_DM_ETC=/etc/roboconf-dm
-mkdir -p $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_dm_ETC > /dev/null 2>&1 || true
+mv -n /opt/roboconf-dm/etc $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
+chown -R $USER:$GROUP $ROBOCONF_dm_ETC > /dev/null 2>&1 || true
 
-cp -r /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
-chown $USER:$GROUP $ROBOCONF_DM_ETC
+# Update the logging configuration
+sed -i -r 's/\$\{karaf\.data\}\/log/\/var\/log\/roboconf-dm/g' /etc/roboconf-dm/org.ops4j.pax.logging.cfg
 
-# Create the directory /var/log/roboconf-dm
+# Create the /VAR/LOG directory
 ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
 mkdir -p $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_dm_VAR_LOG > /dev/null 2>&1 || true
+chown -R $USER:$GROUP $ROBOCONF_dm_VAR_LOG > /dev/null 2>&1 || true
 
+# Move the data directory
 ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
-mv -n /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
-rm -rf /opt/roboconf-dm/data
-chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
+mv -n /opt/roboconf-dm/data $ROBOCONF_DM_VAR_LIB
+chown -R $USER:$GROUP $ROBOCONF_DM_VAR_LIB
+
+# Copy the man page
+if [ -d "/usr/share/man/man1" ]; then
+	cp -n /tmp/man/roboconf-dm.1 /usr/share/man/man1/
+fi
 
 # Start
 set +e
