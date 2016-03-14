@@ -32,7 +32,7 @@ ROBOCONF_DM_OPT=/opt/roboconf-dm
 rm -rf $ROBOCONF_DM_VAR_LIB || true
 rm -rf $ROBOCONF_DM_ETC || true
  
-# Remove all the log files of the agent
+# Remove all the log files of the DM
 rm -rf $ROBOCONF_DM_VAR_LOG || true
 
 # Remove all the executables

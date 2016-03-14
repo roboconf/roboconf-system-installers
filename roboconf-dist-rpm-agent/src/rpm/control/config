@@ -1,9 +1,0 @@
-#!/bin/bash
-
-. /usr/share/debconf/confmodule
-
-# Ask for target-id using debconf (see debconf "templates" file),
-# then replace target-id in roboconf-agent config (according to user input).
-db_input critical roboconf-agent/target || true
-db_go
-db_get roboconf-agent/target

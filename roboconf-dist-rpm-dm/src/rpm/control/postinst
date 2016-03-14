@@ -37,7 +37,7 @@ rm -rf $RPM_SOURCE_DIR/roboconf-karaf-dist-dm-*.tar.gz
 # Create the /ETC directory
 ROBOCONF_DM_ETC=/etc/roboconf-dm
 mv -n /opt/roboconf-dm/etc $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
-chown -R $USER:$GROUP $ROBOCONF_dm_ETC > /dev/null 2>&1 || true
+chown -R $USER:$GROUP $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
 
 # Update the logging configuration
 sed -i -r 's/\$\{karaf\.data\}\/log/\/var\/log\/roboconf-dm/g' /etc/roboconf-dm/org.ops4j.pax.logging.cfg
@@ -54,7 +54,7 @@ chown -R $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
 # Copy the man page
 if [ -d "/usr/share/man/man1" ]; then
-	cp -n /tmp/man/roboconf-dm.1 /usr/share/man/man1/
+	cp -n /tmp/man/roboconf-dm.1.gz /usr/share/man/man1/
 fi
 
 # Start
