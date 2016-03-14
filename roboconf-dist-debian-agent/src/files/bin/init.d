@@ -40,6 +40,7 @@ DAEMON=/opt/roboconf-agent/bin/karaf
 SCRIPTNAME=/etc/init.d/$NAME
 RUNDIR=/var/run/$NAME
 PIDFILE=/var/run/$NAME.pid
+
 export KARAF_HOME=/opt/roboconf-agent
 export KARAF_BASE=/opt/roboconf-agent
 export KARAF_ETC=/etc/roboconf-agent
@@ -141,7 +142,6 @@ case "$1" in
 	esac
 	;;
   *)
-	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
 	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
 	exit 3
 	;;
