@@ -29,14 +29,13 @@ set -e
 USER=roboconf-agent
 GROUP=roboconf-agent
 
-# Create the directory /etc/ directories
+# Create the /ETC directory
 ROBOCONF_AGENT_ETC=/etc/roboconf-agent
-mkdir -p $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
+mv -n /opt/roboconf-agent/etc $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
+chown -R $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 
-mv -n /opt/roboconf-agent/etc/* $ROBOCONF_AGENT_ETC
-rm -rf /opt/roboconf-agent/etc
-chown $USER:$GROUP $ROBOCONF_AGENT_ETC
+# Update the logging configuration
+sed -i -r 's/\$\{karaf\.data\}\/log/\/var\/log\/roboconf-agent/g' /etc/roboconf-agent/org.ops4j.pax.logging.cfg
 
 # Ask for target-id using debconf (see debconf "templates" file),
 # then replace target-id in roboconf-agent config (according to user input).
@@ -45,15 +44,15 @@ if [ "$RET" != "other" ]; then
     sed -i "/target-id =/c target-id = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
 fi
 
-# Create the directory /var/log/roboconf-agent
+# Create the /VAR/LOG directory
 ROBOCONF_AGENT_VAR_LOG=/var/log/roboconf-agent
 mkdir -p $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LOG > /dev/null 2>&1 || true
 
+# Move the data directory
 ROBOCONF_AGENT_VAR_LIB=/var/lib/roboconf-agent
-mv -n /opt/roboconf-agent/data/* $ROBOCONF_AGENT_VAR_LIB
-rm -rf /opt/roboconf-agent/data
-chown $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
+mv -n /opt/roboconf-agent/data $ROBOCONF_AGENT_VAR_LIB
+chown -R $USER:$GROUP $ROBOCONF_AGENT_VAR_LIB
 
 # Register the agent's automatic startup
 update-rc.d roboconf-agent defaults

@@ -24,26 +24,23 @@
 USER=roboconf-dm
 GROUP=roboconf-dm
 
-# Create the directory /etc/ directories
+# Create the /ETC directory
 ROBOCONF_DM_ETC=/etc/roboconf-dm
-mkdir -p $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
-chown $USER:$GROUP $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
+mv -n /opt/roboconf-dm/etc $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
+chown -R $USER:$GROUP $ROBOCONF_DM_ETC > /dev/null 2>&1 || true
 
-mv -n /opt/roboconf-dm/etc/* $ROBOCONF_DM_ETC
-rm -rf /opt/roboconf-dm/etc
-chown $USER:$GROUP $ROBOCONF_DM_ETC
+# Update the logging configuration
+sed -i -r 's/\$\{karaf\.data\}\/log/\/var\/log\/roboconf-dm/g' /etc/roboconf-dm/org.ops4j.pax.logging.cfg
 
-# Create the directory /var/log/roboconf-dm
+# Create the /VAR/LOG directory
 ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
 mkdir -p $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 chown $USER:$GROUP $ROBOCONF_DM_VAR_LOG > /dev/null 2>&1 || true
 
+# Move the data directory
 ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
-mv -n /opt/roboconf-dm/data/* $ROBOCONF_DM_VAR_LIB
-rm -rf /opt/roboconf-dm/data
-chown $USER:$GROUP $ROBOCONF_DM_VAR_LIB
-
-chmod 755 /opt/roboconf-dm/bin/karaf
+mv -n /opt/roboconf-dm/data $ROBOCONF_DM_VAR_LIB
+chown -R $USER:$GROUP $ROBOCONF_DM_VAR_LIB
 
 # Register the dm's automatic startup
 update-rc.d roboconf-dm defaults

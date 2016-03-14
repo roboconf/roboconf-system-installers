@@ -77,7 +77,7 @@
 						<configuration>
 							<name>current-date</name>
 							<locale>fr_FR</locale>
-							<pattern>dd MMM yyyy</pattern>
+							<pattern>yyyy_MMM_dd</pattern>
 						</configuration>
 					</execution>
 				</executions>
@@ -176,20 +176,6 @@
 										<user>root</user>
 										<group>root</group>
 										<filemode>0755</filemode>
-									</mapper>
-								</data>
-
-								<!-- Copy the log configuration file -->
-								<data>
-									<src>${project.basedir}/src/files/etc/org.ops4j.pax.logging.cfg</src>
-									<dst>org.ops4j.pax.logging.cfg</dst>
-									<type>file</type>
-									<mapper>
-										<type>perm</type>
-										<prefix>/opt/roboconf-agent/etc</prefix>
-										<user>roboconf-agent</user>
-										<group>roboconf-agent</group>
-										<filemode>0644</filemode>
 									</mapper>
 								</data>
 								
