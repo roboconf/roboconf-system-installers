@@ -3,7 +3,7 @@ Version: [[version]]
 Section: contrib/java
 Priority: optional
 Architecture: all
-Depends: default-jre-headless (>= 1.7)
+Depends: java-runtime-headless (>= 1.7) | openjdk-7-jre-headless
 Maintainer: Pierre-Yves Gibello <pygibello@linagora.com>
 Description: Roboconf Deployment Manager
 Distribution: development

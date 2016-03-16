@@ -66,8 +66,7 @@ do_start_karaf_dm()
 	#   2 if daemon could not be started
 	start-stop-daemon --start --chuid roboconf-dm --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
 		|| return 1
-	start-stop-daemon --start --chuid roboconf-dm --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- \
-		$DAEMON_ARGS \
+	start-stop-daemon --start --chuid roboconf-dm --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON \
 		|| return 2
 }
 
