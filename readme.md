@@ -1,6 +1,4 @@
 # Roboconf's System Installers
-[![License](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-
 [![Build Status](http://travis-ci.org/roboconf/roboconf-system-installers.png?branch=master)](http://travis-ci.org/roboconf/roboconf-system-installers/builds)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Join us on Gitter.im](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/roboconf/roboconf)
