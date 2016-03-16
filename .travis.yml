@@ -5,11 +5,10 @@ sudo: required
 services:
   - docker
 
-# We need wget for Sonatype deployment.
-addons:
-  apt:
-    packages:
-    - wget
+# Required packages.
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y wget rpm
 
 # Skip the default Maven command launched by Travis.
 # By default, it is "mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
