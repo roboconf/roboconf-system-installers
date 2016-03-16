@@ -1,0 +1,25 @@
+language: java
+sudo: required
+
+# We need Docker.
+services:
+  - docker
+
+# We need wget for Sonatype deployment.
+addons:
+  apt:
+    packages:
+    - wget
+
+# Skip the default Maven command launched by Travis.
+# By default, it is "mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+install: true
+
+# Build with Maven.
+script:
+  - mvn clean package
+  - ./tests/run-tests-in-docker.sh
+
+# Actions to perform after the build.
+after_success:
+  - ./travis-after-success.sh
