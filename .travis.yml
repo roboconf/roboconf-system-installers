@@ -6,9 +6,12 @@ services:
   - docker
 
 # Required packages.
+# Besides, packages may depend on snapshots.
+# So, we must be able to find them at Sonatype.
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y wget rpm
+  - wget http://roboconf.net/resources/build/settings.xml
 
 # Skip the default Maven command launched by Travis.
 # By default, it is "mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
@@ -16,7 +19,7 @@ install: true
 
 # Build with Maven.
 script:
-  - mvn clean package
+  - mvn clean package --settings settings.xml
   - ./tests/run-tests-in-docker.sh
 
 # Actions to perform after the build.
