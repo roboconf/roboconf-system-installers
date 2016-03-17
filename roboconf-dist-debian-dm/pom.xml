@@ -34,7 +34,7 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>0.6.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -140,7 +140,6 @@
 			<plugin>
 				<artifactId>jdeb</artifactId>
 				<groupId>org.vafer</groupId>
-				<version>1.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
