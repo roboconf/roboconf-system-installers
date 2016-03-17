@@ -34,21 +34,20 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>${roboconf.short.version}-${package.build.version}${version.qualifier}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<groupId>net.roboconf</groupId>
 	<artifactId>roboconf-dist-rpm-dm</artifactId>
 	<name>Roboconf :: RPM Package for the DM</name>
-	<version>${project.parent.version}-${package.build.version}</version>
 	<packaging>rpm</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.roboconf</groupId>
 			<artifactId>roboconf-karaf-dist-dm</artifactId>
-			<version>${project.parent.version}</version>
+			<version>${roboconf.full.version}</version>
 			<type>tar.gz</type>
 		</dependency>
 	</dependencies>
@@ -162,7 +161,7 @@
 						    		<filemode>755</filemode>
 						    		<sources>
 						    			<source>
-						    				<location>${project.build.directory}/dependency/roboconf-karaf-dist-dm-${project.parent.version}.tar.gz</location>
+						    				<location>${project.build.directory}/dependency/roboconf-karaf-dist-dm-${roboconf.full.version}.tar.gz</location>
 						    			</source>
 						    		</sources>
 						    	</mapping>
