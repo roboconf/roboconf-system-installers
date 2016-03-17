@@ -4,4 +4,4 @@
 # 2. Use -q option to only display Maven errors and warnings.
 # 3. Use --settings to force the usage of our "settings.xml" file.
 
-mvn clean deploy -DskipTests=true -q --settings settings.xml
+mvn clean deploy --settings settings.xml
