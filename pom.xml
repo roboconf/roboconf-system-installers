@@ -36,7 +36,7 @@
 	
 	<groupId>net.roboconf</groupId>
 	<artifactId>roboconf-system-installers</artifactId>
-	<version>0.6.1</version>
+	<version>0.6.1-SNAPSHOT</version>
 	<name>Roboconf :: System Installers</name>
 	<packaging>pom</packaging>
 	
