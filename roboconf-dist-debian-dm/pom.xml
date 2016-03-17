@@ -34,21 +34,20 @@
 	<parent>
 		<groupId>net.roboconf</groupId>
 		<artifactId>roboconf-system-installers</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>${roboconf.short.version}-${package.build.version}${version.qualifier}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<groupId>net.roboconf</groupId>
 	<artifactId>roboconf-dist-debian-dm</artifactId>
 	<name>Roboconf :: Debian Package for the DM</name>
-	<version>${project.parent.version}-${package.build.version}</version>
 	<packaging>pom</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.roboconf</groupId>
 			<artifactId>roboconf-karaf-dist-dm</artifactId>
-			<version>${project.parent.version}</version>
+			<version>${roboconf.full.version}</version>
 			<type>tar.gz</type>
 		</dependency>
 	</dependencies>
@@ -151,7 +150,7 @@
 							
 								<!-- Karaf distribution is located under /opt/roboconf-dm -->
 								<data>
-									<src>${project.build.directory}/dependency/roboconf-karaf-dist-dm-${project.parent.version}.tar.gz</src>
+									<src>${project.build.directory}/dependency/roboconf-karaf-dist-dm-${roboconf.full.version}.tar.gz</src>
 									<type>archive</type>
 									<includes>**/*</includes>
 									<mapper>
