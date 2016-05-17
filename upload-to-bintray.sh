@@ -22,7 +22,7 @@ echo
 echo "Resetting the SNAPSHOT version..."
 echo
 
-curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} -H "Content-Type: application/json" \
+curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} \
 	-X DELETE ${BINTRAY_URL}/packages/roboconf/roboconf-debian-packages-unstable/main/versions/${VERSION}
 
 curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} -H "Content-Type: application/json" \
@@ -50,7 +50,7 @@ do
 	echo
 			
 	echo "Publishing $f"
-	curl -X POST -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} \
+	curl -X POST -u ${BINTRAY_USER}:${BINTRAY_API_KEY} \
 		-# -o "/tmp/curl-output.txt" \
 		${BINTRAY_URL}/content/roboconf/roboconf-debian-packages-unstable/main/${VERSION}/publish
 	
@@ -69,12 +69,13 @@ echo
 echo "Resetting the SNAPSHOT version..."
 echo
 
-curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} -H "Content-Type: application/json" \
+curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} \
 	-X DELETE ${BINTRAY_URL}/packages/roboconf/roboconf-rpm-unstable/main/versions/${VERSION}
 
 curl -vvf -u${BINTRAY_USER}:${BINTRAY_API_KEY} -H "Content-Type: application/json" \
 	-X POST ${BINTRAY_URL}/packages/roboconf/roboconf-rpm-unstable/main/versions \
 	--data "{\"name\": \"${VERSION}\", \"github_use_tag_release_notes\": false }"
+
 
 echo
 echo "Uploading the RPM files to Bintray..."
@@ -95,7 +96,7 @@ do
 	echo
 	
 	echo "Publishing $f"
-	curl -X POST -T $f -u ${BINTRAY_USER}:${BINTRAY_API_KEY} \
+	curl -X POST -u ${BINTRAY_USER}:${BINTRAY_API_KEY} \
 		-# -o "/tmp/curl-output.txt" \
 		${BINTRAY_URL}/content/roboconf/roboconf-rpm-unstable/main/${VERSION}/publish
 	
