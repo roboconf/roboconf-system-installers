@@ -30,8 +30,8 @@ CAUSE=""
 
 LOC=`dirname "$(readlink -f "$0")"`
 RBCF_RESULTS=/tmp/roboconf-results
+rm -rf $RBCF_RESULTS
 mkdir -p $RBCF_RESULTS
-rm -rf $RBCF_RESULTS/*
 
 
 
