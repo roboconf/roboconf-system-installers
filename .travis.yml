@@ -23,4 +23,5 @@ script:
 
 # Actions to perform after the build.
 after_success:
-  - ./travis-after-success.sh
+  - ./upload-to-sonatype.sh
+  - ./upload-to-bintray.sh
