@@ -5,6 +5,7 @@
 [![Web site](https://img.shields.io/badge/website-roboconf.net-b23e4b.svg)](http://roboconf.net)
 
 [![Snapshots](https://img.shields.io/badge/Snapshots%20on-Sonatype-orange.svg)](https://oss.sonatype.org/content/repositories/snapshots/net/roboconf/)
+[![Snapshots](https://img.shields.io/badge/Snapshots%20on-Bintray-orange.svg)](https://bintray.com/roboconf)
 [![Bintray](https://img.shields.io/badge/Releases%20on-Bintray-yellow.svg)](https://bintray.com/roboconf)
 
 The sources for system installers.  
