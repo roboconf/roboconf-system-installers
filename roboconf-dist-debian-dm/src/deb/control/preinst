@@ -29,6 +29,8 @@
 #
 ################################################################################
 
+set -e
+
 # Create the system group and user running the Roboconf dm
 USER=roboconf-dm
 GROUP=roboconf-dm

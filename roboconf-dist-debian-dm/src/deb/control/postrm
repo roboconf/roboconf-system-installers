@@ -29,6 +29,8 @@
 #
 ################################################################################
 
+set -e
+
 ROBOCONF_DM_ETC=/etc/roboconf-dm
 ROBOCONF_DM_VAR_LOG=/var/log/roboconf-dm
 ROBOCONF_DM_VAR_LIB=/var/lib/roboconf-dm
