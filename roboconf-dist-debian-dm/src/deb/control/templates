@@ -1,0 +1,30 @@
+Template: roboconf-dm/messaging
+Type: select
+Choices: http, rabbitmq
+Default: http
+Description: Enter Roboconf messaging-type for DM/Agent communications:
+
+Template: roboconf-dm/messaging-http-host
+Type: string
+Default: localhost
+Description: Enter host name or IP for http messaging:
+
+Template: roboconf-dm/messaging-http-port
+Type: string
+Default: 8181
+Description: Enter port for http messaging:
+
+Template: roboconf-dm/messaging-rabbitmq-host
+Type: string
+Default: localhost
+Description: Enter host for rabbitmq messaging:
+
+Template: roboconf-dm/messaging-rabbitmq-user
+Type: string
+Default: guest
+Description: Enter rabbitmq user name:
+
+Template: roboconf-dm/messaging-rabbitmq-password
+Type: password
+Description: Enter password for rabbitmq user:
+
