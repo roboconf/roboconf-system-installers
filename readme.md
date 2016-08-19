@@ -8,6 +8,9 @@
 [![Snapshots](https://img.shields.io/badge/Snapshots%20on-Bintray-orange.svg)](https://bintray.com/roboconf)
 [![Bintray](https://img.shields.io/badge/Releases%20on-Bintray-yellow.svg)](https://bintray.com/roboconf)
 
+<img src="http://roboconf.net/resources/img/nn-0.4-debian-packages-for-roboconf.jpg" alt="Debian packages for Roboconf" width="400" />
+<img src="http://roboconf.net/resources/img/nn-0.7-rpm-packages-for-roboconf.jpg" alt="RPM packages for Roboconf" width="400" />
+
 The sources for system installers.  
 This includes Linux scripts, Debian packages, RPMs, etc.
   
