@@ -35,3 +35,11 @@ They are supposed to be executed on Linux.
 ```
 ./tests/run-tests-in-docker.sh
 ```
+
+
+## Notes
+
+* Automated tests for Debian packages were run on Ubuntu 16.04.
+* *roboconf-linux-install-scripts* is out of date.  
+The Karaf commands do not work anymore with Karaf 4.x (password authentication was disabled).
+We keep the directory as an example or as a basis for future work.

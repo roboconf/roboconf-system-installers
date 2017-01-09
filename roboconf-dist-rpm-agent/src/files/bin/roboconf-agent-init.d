@@ -75,7 +75,7 @@ stop() {
         	cd ${KARAF_HOME}/bin && ./stop
         	rm -f $PIDFILE
         else
-        	echo "Karaf is not considered as already running since $PIDFILE exists."
+        	echo "No $PIDFILE file exists."
             echo "Searching for PIDs to kill savagely..."
 
             ROBOCONF_AGENT_PIDS=`ps aux | grep roboconf-agent | grep -v stop | grep -v restart | grep -v grep | awk '{print $2}' `

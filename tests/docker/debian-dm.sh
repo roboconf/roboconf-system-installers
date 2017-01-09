@@ -33,7 +33,7 @@ readonly FILE=debian-dm
 
 # Functions
 findPids() {
-	echo $(ps aux | grep roboconf | grep -v stop | grep -v restart | grep -v grep | grep -v "/bin/bash /tmp/roboconf-test-scripts/")
+	echo $(ps aux | grep roboconf | grep -v " stop" | grep -v " restart" | grep -v grep | grep -v "/bin/bash /tmp/roboconf-test-scripts/")
 }
 
 ok() {
@@ -49,6 +49,21 @@ error() {
 
 # Initialization
 RETVAL=0
+
+
+
+# Noticed when our Docker images for tests switched to Ubuntu 16.04.
+#
+# On Debian systems and Docker images,
+# there may be a setting that prevents the installation of
+# services in a container (it is assumed services should only be installed
+# when the image is built).
+#
+# See http://askubuntu.com/questions/365911/why-the-services-do-not-start-at-installation
+#
+# We do NOT want this here!
+echo "Updating the system's update policy..."
+sed -i "s/exit [0-9]\+/exit 0/g" /usr/sbin/policy-rc.d
 
 
 
@@ -69,7 +84,7 @@ fi
 
 # Install the DM
 echo "Installing Roboconf..."
-sudo dpkg -i /tmp/docker-shared/roboconf*.deb
+dpkg -i /tmp/docker-shared/roboconf*.deb
 sleep 2
 
 

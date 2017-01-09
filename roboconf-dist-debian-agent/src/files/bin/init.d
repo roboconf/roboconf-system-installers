@@ -74,9 +74,12 @@ do_start_karaf_agent()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test > /dev/null \
+	
+	# $DAEMON is the command we execute, "-- daemon" are the parameters we pass to this command.
+	# The "daemon" option guarantees there is only one running process for Karaf (launcher = process).
+	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON --test -- daemon > /dev/null \
 		|| return 1
-	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON \
+	start-stop-daemon --start --quiet --background --make-pidfile --pidfile $PIDFILE --startas $DAEMON -- daemon \
 		|| return 2
 }
 
