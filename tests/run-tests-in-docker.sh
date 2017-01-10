@@ -41,6 +41,7 @@ echo
 
 docker pull nimmis/java-centos:openjdk-7-jdk
 docker pull nimmis/java:openjdk-7-jdk
+docker pull nimmis/java:14.04-openjdk-7-jdk
 
 
 
@@ -87,7 +88,7 @@ fi
 
 
 echo
-echo "Testing the Debian package for the DM (Ubuntu)..."
+echo "Testing the Debian package for the DM (Ubuntu 16.04)..."
 echo
 
 docker run \
@@ -100,15 +101,15 @@ docker run \
 docker wait debian-dm
 docker rm debian-dm
 
-if [ -f "$RBCF_RESULTS/debian-dm-failure.txt" ]; then
+if [ -f "$RBCF_RESULTS/debian-16.04-dm-failure.txt" ]; then
 	RETVAL=1
-	CAUSE="$CAUSE\nTests for the DM's Debian package failed on Ubuntu."
+	CAUSE="$CAUSE\nTests for the DM's Debian package failed on Ubuntu 16.04."
 fi
 
 
 
 echo
-echo "Testing the Debian package for the Agent (Ubuntu)..."
+echo "Testing the Debian package for the Agent (Ubuntu 16.04)..."
 echo
 
 docker run \
@@ -121,9 +122,51 @@ docker run \
 docker wait debian-agent
 docker rm debian-agent
 
-if [ -f "$RBCF_RESULTS/debian-agent-failure.txt" ]; then
+if [ -f "$RBCF_RESULTS/debian-16.04-agent-failure.txt" ]; then
 	RETVAL=1
-	CAUSE="$CAUSE\nTests for the Agent's Debian package failed on Ubuntu."
+	CAUSE="$CAUSE\nTests for the Agent's Debian package failed on Ubuntu 16.04."
+fi
+
+
+
+echo
+echo "Testing the Debian package for the DM (Ubuntu 14.04)..."
+echo
+
+docker run \
+		-v $LOC:/tmp/roboconf-test-scripts \
+		-v "$LOC/../roboconf-dist-debian-dm/target":/tmp/docker-shared \
+		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		--name debian-dm \
+		nimmis/java:14.04-openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-dm.sh
+
+docker wait debian-dm
+docker rm debian-dm
+
+if [ -f "$RBCF_RESULTS/debian-14.04-dm-failure.txt" ]; then
+	RETVAL=1
+	CAUSE="$CAUSE\nTests for the DM's Debian package failed on Ubuntu 14.04."
+fi
+
+
+
+echo
+echo "Testing the Debian package for the Agent (Ubuntu 14.04)..."
+echo
+
+docker run \
+		-v $LOC:/tmp/roboconf-test-scripts \
+		-v "$LOC/../roboconf-dist-debian-agent/target":/tmp/docker-shared \
+		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		--name debian-agent \
+		nimmis/java:14.04-openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-agent.sh
+
+docker wait debian-agent
+docker rm debian-agent
+
+if [ -f "$RBCF_RESULTS/debian-14.04-agent-failure.txt" ]; then
+	RETVAL=1
+	CAUSE="$CAUSE\nTests for the Agent's Debian package failed on Ubuntu 14.04."
 fi
 
 
@@ -158,11 +201,19 @@ echo "--- RPM for the Agent (CentOS) ---"
 echo
 echo "$(<$RBCF_RESULTS/rpm-agent.txt)"
 echo
-echo "--- Debian package for the DM (Ubuntu) ---"
+echo "--- Debian package for the DM (Ubuntu 16.04) ---"
 echo
-echo "$(<$RBCF_RESULTS/debian-dm.txt)"
+echo "$(<$RBCF_RESULTS/debian-16.04-dm.txt)"
 echo
-echo "--- Debian package for the Agent (Ubuntu) ---"
+echo "--- Debian package for the Agent (Ubuntu 16.04) ---"
 echo
-echo "$(<$RBCF_RESULTS/debian-agent.txt)"
+echo "$(<$RBCF_RESULTS/debian-16.04-agent.txt)"
+echo
+echo "--- Debian package for the DM (Ubuntu 14.04) ---"
+echo
+echo "$(<$RBCF_RESULTS/debian-14.04-dm.txt)"
+echo
+echo "--- Debian package for the Agent (Ubuntu 14.04) ---"
+echo
+echo "$(<$RBCF_RESULTS/debian-14.04-agent.txt)"
 echo
