@@ -41,7 +41,7 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-		<roboconf.short.version>0.8</roboconf.short.version>
+		<roboconf.short.version>0.9</roboconf.short.version>
 		<package.build.version>1.0</package.build.version>
 		<version.qualifier>-SNAPSHOT</version.qualifier>
 		<roboconf.full.version>${roboconf.short.version}${version.qualifier}</roboconf.full.version>
