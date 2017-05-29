@@ -62,9 +62,9 @@ AGENT_TAR_LOC=~/.m2/repository/net/roboconf/roboconf-karaf-dist-agent/$VERSION/$
 
 
 ############################################################################
-# The target ID (used to configure the agent).
+# The agent parameters (used to configure the agent).
 # Tested targets: EC2, Openstack
-TARGET_ID=iaas-ec2
+AGENT_PARAMETERS="@iaas-ec2"
 
 
 ############################################################################

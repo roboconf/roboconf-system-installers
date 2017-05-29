@@ -1,5 +1,5 @@
 Template: roboconf-agent/target
 Type: select
-Choices: iaas-openstack, iaas-ec2, iaas-azure, iaas-vmware, other
+Choices: @iaas-openstack, @iaas-ec2, @iaas-azure, @iaas-vmware, other
 Default: other
-Description: Enter Roboconf target-id to specify deployment target:
+Description: Enter agent parameters to specify deployment target:

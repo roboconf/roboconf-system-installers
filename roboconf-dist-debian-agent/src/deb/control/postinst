@@ -46,11 +46,11 @@ chown -R $USER:$GROUP $ROBOCONF_AGENT_ETC > /dev/null 2>&1 || true
 # Update the logging configuration
 sed -i -r 's/\$\{karaf\.data\}\/log/\/var\/log\/roboconf-agent/g' /etc/roboconf-agent/org.ops4j.pax.logging.cfg
 
-# Ask for target-id using debconf (see debconf "templates" file),
-# then replace target-id in roboconf-agent config (according to user input).
+# Ask for "parameters" using debconf (see debconf "templates" file),
+# then replace "parameters" in roboconf-agent config (according to user input).
 db_get roboconf-agent/target || true
 if [ "$RET" != "other" ]; then
-    sed -i "/target-id =/c target-id = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
+    sed -i "/parameters =/c parameters = $RET" $ROBOCONF_AGENT_ETC/net.roboconf.agent.configuration.cfg
 fi
 
 # Create the /VAR/LOG directory

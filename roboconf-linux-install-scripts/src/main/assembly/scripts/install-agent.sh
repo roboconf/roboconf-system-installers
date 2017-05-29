@@ -52,7 +52,7 @@ tar -xf $AGENT_NAME.tar.gz
 
 # Configure it
 cd $AGENT_NAME/etc
-sed -i "s/target-id = /target-id = $TARGET_ID/g" net.roboconf.agent.configuration.cfg
+sed -i "s/parameters = /parameters = $AGENT_PARAMETERS/g" net.roboconf.agent.configuration.cfg
 sed -i "s/message-server-ip = localhost/message-server-ip = $IP_RMQ/g" net.roboconf.agent.configuration.cfg
 sed -i "s/message-server-username = guest/message-server-username = $RMQ_USER/g" net.roboconf.agent.configuration.cfg
 sed -i "s/message-server-password = guest/message-server-password = $RMQ_PWD/g" net.roboconf.agent.configuration.cfg
