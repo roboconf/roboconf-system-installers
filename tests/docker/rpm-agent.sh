@@ -27,7 +27,7 @@
 
 # Constants
 readonly PID=/var/run/roboconf-agent.pid
-readonly FILE=rpm-agent
+# FILE is an environment variable
 
 
 

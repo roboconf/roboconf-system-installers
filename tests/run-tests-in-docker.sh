@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2015-2016 Linagora, Université Joseph Fourier, Floralis
+# Copyright 2015-2017 Linagora, Université Joseph Fourier, Floralis
 #
 # The present code is developed in the scope of the joint LINAGORA -
 # Université Joseph Fourier - Floralis research program and is designated
@@ -40,7 +40,8 @@ echo "Pulling Docker images..."
 echo
 
 docker pull nimmis/java-centos:openjdk-7-jdk
-docker pull nimmis/java:openjdk-7-jdk
+docker pull ubuntu:16.04
+docker pull nimmis/java:openjdk-8-jdk
 docker pull nimmis/java:14.04-openjdk-7-jdk
 
 
@@ -53,6 +54,7 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-rpm-dm/target/rpm/roboconf-dist-rpm-dm/RPMS/noarch":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="rpm-dm" \
 		--name rpm-dm \
 		nimmis/java-centos:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/rpm-dm.sh
 
@@ -74,6 +76,7 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-rpm-agent/target/rpm/roboconf-dist-rpm-agent/RPMS/noarch":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="rpm-agent" \
 		--name rpm-agent \
 		nimmis/java-centos:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/rpm-agent.sh
 
@@ -88,6 +91,50 @@ fi
 
 
 echo
+echo "Testing the Debian package for the DM (Ubuntu 16.04 without Java installed)..."
+echo
+
+docker run \
+		-v $LOC:/tmp/roboconf-test-scripts \
+		-v "$LOC/../roboconf-dist-debian-dm/target":/tmp/docker-shared \
+		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-16.04-without-java-dm" \
+		--name debian-dm \
+		nimmis/java:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-dm.sh
+
+docker wait debian-dm
+docker rm debian-dm
+
+if [ -f "$RBCF_RESULTS/debian-16.04-without-java-dm-failure.txt" ]; then
+	RETVAL=1
+	CAUSE="$CAUSE\nTests for the DM's Debian package failed on Ubuntu 16.04 without Java installed."
+fi
+
+
+
+echo
+echo "Testing the Debian package for the Agent (Ubuntu 16.04 without Java installed)..."
+echo
+
+docker run \
+		-v $LOC:/tmp/roboconf-test-scripts \
+		-v "$LOC/../roboconf-dist-debian-agent/target":/tmp/docker-shared \
+		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-16.04-without-java-agent" \
+		--name debian-agent \
+		nimmis/java:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-agent.sh
+
+docker wait debian-agent
+docker rm debian-agent
+
+if [ -f "$RBCF_RESULTS/debian-16.04-without-java-agent-failure.txt" ]; then
+	RETVAL=1
+	CAUSE="$CAUSE\nTests for the Agent's Debian package failed on Ubuntu 16.04 without Java installed."
+fi
+
+
+
+echo
 echo "Testing the Debian package for the DM (Ubuntu 16.04)..."
 echo
 
@@ -95,6 +142,7 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-debian-dm/target":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-16.04-dm" \
 		--name debian-dm \
 		nimmis/java:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-dm.sh
 
@@ -116,6 +164,7 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-debian-agent/target":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-16.04-agent" \
 		--name debian-agent \
 		nimmis/java:openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-agent.sh
 
@@ -137,8 +186,9 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-debian-dm/target":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-14.04-dm" \
 		--name debian-dm \
-		nimmis/java:14.04-openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-dm.sh
+		nimmis/java:openjdk-8-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-dm.sh
 
 docker wait debian-dm
 docker rm debian-dm
@@ -158,8 +208,9 @@ docker run \
 		-v $LOC:/tmp/roboconf-test-scripts \
 		-v "$LOC/../roboconf-dist-debian-agent/target":/tmp/docker-shared \
 		-v $RBCF_RESULTS:$RBCF_RESULTS \
+		-e FILE="debian-14.04-agent" \
 		--name debian-agent \
-		nimmis/java:14.04-openjdk-7-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-agent.sh
+		nimmis/java:openjdk-8-jdk /bin/bash /tmp/roboconf-test-scripts/docker/debian-agent.sh
 
 docker wait debian-agent
 docker rm debian-agent
@@ -200,6 +251,14 @@ echo
 echo "--- RPM for the Agent (CentOS) ---"
 echo
 echo "$(<$RBCF_RESULTS/rpm-agent.txt)"
+echo
+echo "--- Debian package for the DM (Ubuntu 16.04 without Java installed) ---"
+echo
+echo "$(<$RBCF_RESULTS/debian-16.04-without-java-dm.txt)"
+echo
+echo "--- Debian package for the Agent (Ubuntu 16.04 without Java installed) ---"
+echo
+echo "$(<$RBCF_RESULTS/debian-16.04-without-java-agent.txt)"
 echo
 echo "--- Debian package for the DM (Ubuntu 16.04) ---"
 echo

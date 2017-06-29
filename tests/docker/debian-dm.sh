@@ -27,7 +27,7 @@
 
 # Constants
 readonly PID=/var/run/roboconf-dm.pid
-readonly FILE=debian-dm
+# FILE is an environment variable
 
 
 

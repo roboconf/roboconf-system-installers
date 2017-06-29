@@ -27,8 +27,7 @@
 
 # Constants
 readonly PID=/var/run/roboconf-agent.pid
-readonly FILE=debian-agent
-
+# FILE is an environment variable
 
 
 # Functions

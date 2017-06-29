@@ -27,7 +27,7 @@
 
 # Constants
 readonly PID=/var/run/roboconf-dm.pid
-readonly FILE=rpm-dm
+# FILE is an environment variable
 
 
 
